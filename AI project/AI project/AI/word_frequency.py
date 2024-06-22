@@ -1,20 +1,25 @@
-from clean_text import clean_text  # import clean_text
+from clean_text import clean_text
 
-def character_frequency(file_path):
-    characters = {}
+def word_frequency(file_path):
+    print("Enter 0 for all word frequency ranks or the top number you want to see:")
+    try:
+        top = int(input("Top of: "))
+    except ValueError:
+        print("Invalid choice. Showing all word frequency ranks.")
+        top = 0
+    dictionary = {}
+
     words = clean_text(file_path)
 
-    # Count the frequency of each character
     for word in words:
-        for char in word:
-            characters[char] = characters.get(char, 0) + 1
+        dictionary[word] = dictionary.get(word, 0) + 1
 
-    # Sort the characters in decreasing order by their frequency
-    sorted_characters = sorted(characters.items(), key=lambda x: x[1], reverse=True)
+    sorted_dictionary = sorted(dictionary.items(), key=lambda w: w[1], reverse=True)
 
-    # Display the first five most frequently occurring characters
-    print("The first five most frequently occurring characters are:")
-    for char, frequency in sorted_characters[:5]:
-        print(f"{char} : {frequency}")
+    print('{:<20} {:<20}'.format("WORDS", "AMOUNT"))
 
+    for count, (word, amount) in enumerate(sorted_dictionary, start=1):
+        if top != 0 and count > top:
+            break
+        print(f"{count}. {word:<20} {amount:<20}")
     print()
