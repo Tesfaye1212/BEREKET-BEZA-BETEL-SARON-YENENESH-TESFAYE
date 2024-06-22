@@ -1,6 +1,5 @@
 import re
 import os
-
 def clean_text(file_path):
     words = []
     file_path = os.path.join(os.path.dirname(__file__), "..", file_path)
